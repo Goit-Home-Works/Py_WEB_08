@@ -148,3 +148,23 @@ WIKI
 
 
 Введіть у моделі додаткове поле телефонний номер. Також додайте поле, що відповідає за кращий спосіб надсилання повідомлень — SMS по телефону або email. Нехай producer.py відправляє у різні черги контакти для SMS та email. Створіть два скрипти consumer_sms.py та consumer_email.py, кожен з яких отримує свої контакти та обробляє їх.
+
+
+# Implementation:
+
+1.  Create an Atlas MongoDB cloud database.
+     for connect:
+    python3 connect_by_pymongo.py
+    python3 connect.py
+
+2.  Using the Mongoengine ODM, create models to store data from these files in the authors and quotes collections.
+    ===
+
+3.  When storing quotes, the author field in the document should not be a string value, but the Reference fields field, 
+    where the ObjectID from the authors collection   is stored.
+    ====
+
+4.  Write scripts to upload json files to a cloud database.
+    ===
+
+5.  
