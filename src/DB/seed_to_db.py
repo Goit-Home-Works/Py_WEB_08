@@ -3,7 +3,7 @@ import json
 from faker import Faker
 from tqdm import tqdm
 from random import choice
-from models import Authors, Quotes, Contacts, PreferTypes
+from src.DB.models import Authors, Quotes, Contacts, PreferTypes
 
 
 def load_json_files_from_dir(json_dir: Path) -> dict:
@@ -20,35 +20,37 @@ def seeds(debug: bool = False):
     json_dir = Path(__file__).parent.parent.joinpath("data")
     print("PATH:  ", json_dir)
     json_dict = load_json_files_from_dir(json_dir)
+    print("json_dict:  ", json_dict)
 
     if not json_dict:
         print("Files JSON not found")
         return 1
 
     authors_id = {}
-    seed_object = "authors"
-    print(f"Add {seed_object}...")
-    if seed_object in json_dict:
+    authors_object = "authors"  # Separate variable for authors
+    print(f"Add {authors_object}...")
+    if authors_object in json_dict:
         Authors.drop_collection()
-        so = json_dict.get(seed_object)
+        so = json_dict.get(authors_object)
         for author in tqdm(
-            so, total=len(so), desc="processing in progress, processed:"):
+            so, total=len(so), desc="processing in progress, processed:"
+        ):
             rec = Authors(**author).save()
             authors_id[author.get("fullname")] = rec.id
-            # print(f"added {seed_object} id: {rec.id} ({rec.fullname})")
+            print(f"added {authors_object} id: {rec.id} ({rec.fullname})")
 
-    seed_object = "quotes"
-    print(f"Add {seed_object}...")
-    if seed_object in json_dict:
+    quotes_object = "quotes"  # Separate variable for quotes
+    print(f"Add {quotes_object}...")
+    if quotes_object in json_dict:
         Quotes.drop_collection()
-        so = json_dict.get(seed_object)
-        for quote in tqdm(so, total=len(so), desc="processing in progress, processed:"):
+        so = json_dict.get(quotes_object)
+        for quote in tqdm(so, total=len(so)):
             author = quote.get("author")
             author_id = authors_id.get(author)
             if author_id:
                 quote["author"] = author_id
                 rec = Quotes(**quote).save()
-                # print(f"added {seed_object} id: {rec.id}")
+                print(f"added {quotes_object} id: {rec.id}")
                 # author_by_id = Authors.objects(id=author_id).first()
                 # print(f"added quote of quote.author {author}, author id [{author_id}] = ({author_by_id.fullname}) ")
 
@@ -70,6 +72,7 @@ def seeds(debug: bool = False):
     #     print("-------------------")
     #     print(record.to_mongo().to_dict())
 
+
 def seed_prefer_types() -> list[str]:
     result = {
         "type_sms": PreferTypes(type="SMS"),
@@ -79,8 +82,7 @@ def seed_prefer_types() -> list[str]:
 
 
 def seed_contacts(
-    max_records: int = 100, prefer_type: str = "type_email", drop: bool = True
-) -> list[str]:
+    max_records: int = 100, drop: bool = True) -> list[str]:
     prefer_types = ["type_email", "type_sms"]
     prefer_type = choice(prefer_types)
     fake = Faker("uk-UA")
@@ -100,14 +102,12 @@ def seed_contacts(
             "prefer": types.get(prefer_type),
         }
         contact = Contacts(**obj).save()
-        obj_id = contact.id
-        result.append(str(obj_id))
+        result.append(str(contact.id))
     return result
 
 if __name__ == "__main__":
     from connect import connect_mongoDb
 
     if connect_mongoDb():
-        # print(seed_contacts(20))
         seeds()
-
+        seed_contacts(20)
