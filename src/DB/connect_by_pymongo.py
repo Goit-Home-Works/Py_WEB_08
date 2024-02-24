@@ -4,7 +4,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import pymongo
 
-env_path = Path(__file__).parent.parent.joinpath(".env")
+env_path = Path(__file__).parent.parent.parent.joinpath(".env")
 if env_path.is_file:
     print(env_path)
     load_dotenv(env_path)
