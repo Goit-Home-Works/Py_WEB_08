@@ -170,49 +170,49 @@ WIKI
 
 5.  Implement a script to search for citations by tag, by author name, or by a set of tags. The script executes in an infinite loop and accepts commands in the following format command: value using the usual input operator.
      docker run --name hw-08-redis-cache -d -p 6379:6379 redis
-     python3 main.py
+        python3 main.py
 
 ## second part:
 
 1.  
-   docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.11-management
+      docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.11-management
 
    === consumer 1
    
-   python3 src/tasks/consumer.py
+      python3 src/tasks/consumer.py
    
    === consumer 2
    
-   python3 src/tasks/consumer.py
+      python3 src/tasks/consumer.py
    
    ===  producer
    
-   python3 src/tasks/producer.py
+      python3 src/tasks/producer.py
 
   ### extra sms:
 
-     === consumer_sms 1
+  === consumer_sms 1
    
-   python3 tasks/consumer_sms.py
+      python3 tasks/consumer_sms.py
    
    === consumer_sms 2
    
-   python3 tasks/consumer_sms.py
+      python3 tasks/consumer_sms.py
    
    ===  producer_sms
    
-   python3 tasks/producer_sms.py
+      python3 tasks/producer_sms.py
 
 ### extra email:
 
-     === consumer_email 1
+  === consumer_email 1
 
-   python3 tasks/consumer_email.py
+      python3 tasks/consumer_email.py
 
    === consumer_email 2
 
-   python3 tasks/consumer_email.py
+      python3 tasks/consumer_email.py
    
    ===  producer_email
 
-   python3 tasks/producer_email.py
+      python3 tasks/producer_email.py
