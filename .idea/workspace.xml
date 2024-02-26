@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c18ea51f-c2bc-404b-b732-884f2c679f9d" name="Changes" comment="init">
-      <change afterPath="$PROJECT_DIR$/src/tasks/producer_sms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DB/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/seed_to_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/seed_to_db.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tasks/consumer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/consumer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tasks/producer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/producer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tasks/producer_email.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/producer_email.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tasks/producer_sms.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/tasks/producer_sms.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

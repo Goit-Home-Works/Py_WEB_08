@@ -177,11 +177,11 @@ WIKI
 1.  
    docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.11-management
    === consumer 1
-   python3 tasks/consumer.py
+   python3 src/tasks/consumer.py
    === consumer 2
-   python3 tasks/consumer.py
+   python3 src/tasks/consumer.py
    ===  producer
-   python3 tasks/producer.py
+   python3 src/tasks/producer.py
 
   ### extra sms:
 

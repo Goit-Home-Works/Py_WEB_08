@@ -101,7 +101,7 @@ def main(prefer_type: str):
 
 if __name__ == "__main__":
     try:
-        main(prefer_type="")
+        main(prefer_type="for_all")
     except KeyboardInterrupt:
         print("Interrupted")
         sys.exit(0)

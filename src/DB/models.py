@@ -32,7 +32,7 @@ class Quotes(Document):
 
 
 class PreferTypes(EmbeddedDocument):
-    type = StringField()
+    type = StringField(required=True, choices=["SMS", "EMAIL"])
 
 
 class Contacts(Document):

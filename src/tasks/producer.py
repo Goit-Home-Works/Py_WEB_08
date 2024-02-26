@@ -12,29 +12,17 @@ sys.path.append(str(src_path))
 from src.DB.connect import connect_mongoDb
 from src.DB.seed_to_db import seed_contacts
 
-def seed(
-    seed_on: bool = True,
-    max_records: int = 100,
-    drop: bool = True,
-) -> list[str]:
+
+def seed(seed_on: bool = True) -> list[str]:
     result = []
     if connect_mongoDb():
         if seed_on:
-            result = seed_contacts(
-                max_records=max_records, drop=drop
-            )
+            result = seed_contacts()
     return result
 
 
-def main(
-    seed_on: bool = True,
-    max_records: int = 100,
-    prefer_type: str = "type_email",
-    drop: bool = True,
-):
-    contacts = seed(
-        seed_on=seed_on, max_records=max_records, drop=drop
-    )
+def main(seed_on: bool = True, prefer_type=None, max_records=None):
+    contacts = seed(seed_on=seed_on)
     if not contacts:
         print("contacts not ready")
         return
@@ -53,7 +41,7 @@ def main(
     channel = connection.channel()
 
     exchange = "task_mock"
-    routing_key = "_".join(["task_queue", prefer_type])
+    routing_key = "_".join(["task_queue", prefer_type if prefer_type else "for_all"])
 
     channel.exchange_declare(exchange=exchange, exchange_type="direct")
     channel.queue_declare(queue=routing_key, durable=True)
@@ -82,4 +70,4 @@ def main(
 
 
 if __name__ == "__main__":
-    main(max_records=100, prefer_type="")
+    main(max_records=100, prefer_type=None)

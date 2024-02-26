@@ -1,4 +1,3 @@
-from pathlib import Path
 import json
 from faker import Faker
 from faker.providers import DynamicProvider
@@ -24,9 +23,9 @@ def load_json_files_from_dir(json_dir: Path) -> dict:
 
 def seeds(debug: bool = False):
     json_dir = Path(__file__).parent.parent.joinpath("data")
-    print("PATH:  ", json_dir)
+    # print("PATH:  ", json_dir)
     json_dict = load_json_files_from_dir(json_dir)
-    print("json_dict:  ", json_dict)
+    # print("json_dict:  ", json_dict)
 
     if not json_dict:
         print("Files JSON not found")
@@ -88,7 +87,8 @@ def seed_prefer_types() -> list[str]:
 
 
 def seed_contacts(
-    max_records: int = 100, drop: bool = True) -> list[str]:
+    max_records: int = 20, prefer_type: str = None, drop: bool = True) -> list[str]:
+    # print("PREFER_TYPE:  >>> ", prefer_type)
     prefer_types_provider = DynamicProvider(
         provider_name="prefer_types", elements=["type_email", "type_sms"]
     )
@@ -109,6 +109,7 @@ def seed_contacts(
             "birthday": fake.date_between(),
             "prefer": types.get(fake.prefer_types()),
         }
+        # print("OBJ>>>> ",obj["prefer"].type)
         contact = Contacts(**obj).save()
         result.append(str(contact.id))
     return result
