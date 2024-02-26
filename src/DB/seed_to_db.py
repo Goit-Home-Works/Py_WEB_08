@@ -1,9 +1,15 @@
 from pathlib import Path
 import json
 from faker import Faker
+from faker.providers import DynamicProvider
 from tqdm import tqdm
 from random import choice
-from src.DB.models import Authors, Quotes, Contacts, PreferTypes
+import sys
+from pathlib import Path
+
+src_path = Path(__file__).resolve().parent.parent
+sys.path.append(str(src_path) + "/DB")
+from models import Authors, Quotes, Contacts, PreferTypes
 
 
 def load_json_files_from_dir(json_dir: Path) -> dict:
@@ -83,9 +89,11 @@ def seed_prefer_types() -> list[str]:
 
 def seed_contacts(
     max_records: int = 100, drop: bool = True) -> list[str]:
-    prefer_types = ["type_email", "type_sms"]
-    prefer_type = choice(prefer_types)
+    prefer_types_provider = DynamicProvider(
+        provider_name="prefer_types", elements=["type_email", "type_sms"]
+    )
     fake = Faker("uk-UA")
+    fake.add_provider(prefer_types_provider)
     types = seed_prefer_types()
 
     print(f"Add contacts: {max_records} ...")
@@ -99,7 +107,7 @@ def seed_contacts(
             "phone": fake.phone_number(),
             "address": fake.address(),
             "birthday": fake.date_between(),
-            "prefer": types.get(prefer_type),
+            "prefer": types.get(fake.prefer_types()),
         }
         contact = Contacts(**obj).save()
         result.append(str(contact.id))
