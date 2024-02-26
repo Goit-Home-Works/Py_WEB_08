@@ -176,4 +176,27 @@ WIKI
 
 1.  
    docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.11-management
-   python tasks/producer.py
+   === consumer 1
+   python3 tasks/consumer.py
+   === consumer 2
+   python3 tasks/consumer.py
+   ===  producer
+   python3 tasks/producer.py
+
+  ### extra sms:
+
+     === consumer_sms 1
+   python3 tasks/consumer_sms.py
+   === consumer_sms 2
+   python3 tasks/consumer_sms.py
+   ===  producer_sms
+   python3 tasks/producer_sms.py
+
+### extra email:
+
+     === consumer_email 1
+   python3 tasks/consumer_email.py
+   === consumer_email 2
+   python3 tasks/consumer_email.py
+   ===  producer_email
+   python3 tasks/producer_email.py

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from mongoengine import EmbeddedDocument, Document, CASCADE, DENY
+from mongoengine import EmbeddedDocument, Document, CASCADE
 from mongoengine.fields import (
     IntField,
     BooleanField,

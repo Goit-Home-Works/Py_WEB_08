@@ -7,7 +7,7 @@ from pathlib import Path
 
 src_path = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(src_path))
-print("SRC_PATH:  ", src_path)
+# print("SRC_PATH:  ", src_path)
 
 from src.DB.connect import connect_mongoDb
 from src.DB.seed_to_db import seed_contacts

@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 src_path = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(src_path))
-print("SRC_PATH:  ", src_path)
+# print("SRC_PATH:  ", src_path)
 
 from src.DB.connect import connect_mongoDb
 from src.DB.models import Contacts, PreferTypes
@@ -28,9 +28,6 @@ def sending_task(message):
             case _:
                 print("Prefer type is unknown, use email by default")
                 email_task(contact)
-
-    # print(f"sending_task {prefer_type=}")
-
     return
 
 
@@ -66,7 +63,7 @@ def sms_task(contact):
     return
 
 
-def main(prefer_type: str = "type_email"):
+def main(prefer_type: str):
     try:
         credentials = pika.PlainCredentials("guest", "guest")
         connection = pika.BlockingConnection(
@@ -92,6 +89,7 @@ def main(prefer_type: str = "type_email"):
 
     if connect_mongoDb():
         queue = "_".join(["task_queue", prefer_type])
+        channel.queue_declare(queue=queue, durable=True)
         channel.basic_qos(prefetch_count=1)
         channel.basic_consume(queue=queue, on_message_callback=callback)
 
