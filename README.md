@@ -151,6 +151,7 @@ WIKI
 
 
 # Implementation:
+## first part:
 
 1.  Create an Atlas MongoDB cloud database.
      for connect:
@@ -168,6 +169,9 @@ WIKI
     python3 src/DB/seed_to_db.py
 
 5.  Implement a script to search for citations by tag, by author name, or by a set of tags. The script executes in an infinite loop and accepts commands in the following format command: value using the usual input operator.
-     python3 src/DB/search_in_db.py
+     docker run --name hw-08-redis-cache -d -p 6379:6379 redis
+     python3 main.py
 
-6.  
+## second part:
+
+1. 

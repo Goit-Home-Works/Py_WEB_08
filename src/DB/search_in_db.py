@@ -1,8 +1,8 @@
 import os
 import redis
+from redis_lru import RedisLRU
 from pathlib import Path
 from dotenv import load_dotenv
-from redis_lru import RedisLRU
 import re
 
 from src.DB.models import Authors, Quotes
