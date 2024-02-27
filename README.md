@@ -154,21 +154,26 @@ WIKI
 ## first part:
 
 1.  Create an Atlas MongoDB cloud database.
+   
      for connect:
     python3 connect_by_pymongo.py
     python3 connect.py
 
 2.  Using the Mongoengine ODM, create models to store data from these files in the authors and quotes collections.
+   
     src/DB/models.py
 
 3.  When storing quotes, the author field in the document should not be a string value, but the Reference fields field, 
     where the ObjectID from the authors collection   is stored.
+
     src/DB/models.py
 
 4.  Write scripts to upload json files to a cloud database.
+   
     python3 src/DB/seed_to_db.py
 
 5.  Implement a script to search for citations by tag, by author name, or by a set of tags. The script executes in an infinite loop and accepts commands in the following format command: value using the usual input operator.
+   
      docker run --name hw-08-redis-cache -d -p 6379:6379 redis
         python3 main.py
 
